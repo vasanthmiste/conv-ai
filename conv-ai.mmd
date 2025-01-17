@@ -1,0 +1,63 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#E0F2F1',
+    'primaryTextColor': '#004D40',
+    'primaryBorderColor': '#00796B',
+    'lineColor': '#00796B',
+    'secondaryColor': '#FFF3E0',
+    'tertiaryColor': '#F1F8E9'
+  }
+}}%%
+
+flowchart TB
+    classDef default fill:#fff,stroke:#00796B,stroke-width:2px,rx:5,ry:5;
+    classDef coordinator fill:#E0F2F1,stroke:#00796B,stroke-width:3px,rx:10,ry:10;
+    classDef intent fill:#B2DFDB,stroke:#00796B,stroke-width:2px;
+    classDef delegate fill:#FFF3E0,stroke:#FF8F00,stroke-width:2px,rx:8,ry:8;
+    classDef llm fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,rx:5,ry:5;
+    classDef api fill:#FCE4EC,stroke:#C2185B,stroke-width:2px,rx:5,ry:5;
+    classDef process fill:#F1F8E9,stroke:#558B2F,stroke-width:2px,rx:5,ry:5;
+
+    U["👤 User Input"]:::default
+    I["🔍 Intent & Entity Decoding (SLM)"]:::intent
+    A["🤖 Agent Orchestration<br>(AgenticAI)"]:::coordinator
+    LLM["🧠 Response Generation<br>(LLM)"]:::llm
+
+    subgraph Agents ["Domain-Specific Agents"]
+        direction TB
+        Plan["📜 PlanAgent"]:::delegate
+        Claims["📝 ClaimsAgent"]:::delegate
+        Benefits["💡 BenefitsAgent"]:::delegate
+        Eligibility["✔️ EligibilityAgent"]:::delegate
+        Program["📊 ProgramAgent"]:::delegate
+    end
+
+    subgraph DataSources ["Data Sources"]
+        direction TB
+        PDFs["📄 PDFs"]:::default
+        Audio["🎙️ Audio"]:::default
+        Video["📹 Video"]:::default
+        DB["🗄️ Database<br>(DAO Code)"]:::process
+        API["🌐 APIs"]:::api
+    end
+
+    subgraph Preprocessing ["Preprocessing"]
+        OCR["🔍 Text Extraction<br>(OCR)"]:::process
+        Transcription["🗣️ Speech-to-Text"]:::process
+        Metadata["🗂️ Video Metadata Extraction"]:::process
+    end
+
+    U --> I
+    I --> A
+    A -->|Route Query| Agents
+    Agents -->|Fetch Data| DataSources
+    DataSources --> Preprocessing
+    Preprocessing -->|Provide Processed Data| Agents
+    Agents --> LLM
+    LLM -->|Generate Response| A
+    A -->|Send Response| U
+
+    style Agents fill:#FFF8E1,stroke:#FFA000,stroke-width:2px,rx:10,ry:10;
+    style DataSources fill:#E0F7FA,stroke:#006064,stroke-width:2px,rx:10,ry:10;
+    style Preprocessing fill:#F1F8E9,stroke:#558B2F,stroke-width:2px,rx:10,ry:10;
