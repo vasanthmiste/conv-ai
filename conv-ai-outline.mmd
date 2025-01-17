@@ -21,4 +21,18 @@ flowchart LR
 
     U["👤 User Input"]:::default --> I["🔍 Intent Decoding<br>(SLM)"]:::intent --> A["🤖 Agentic Layer<br>(All Agents)"]:::coordinator --> D["📦 Data Retriever Layer<br>(VectorStore / DB / API)"]:::process --> LLM["🧠 Response Generation<br>(LLM)"]:::llm --> R["💬 Response to User"]:::default --> U
 
+    subgraph AgenticLayer ["Agentic Layer (All Agents)"]
+        direction TB
+        PlanAgent["📜 PlanAgent"]:::delegate
+        ClaimsAgent["📝 ClaimsAgent"]:::delegate
+        BenefitsAgent["💡 BenefitsAgent"]:::delegate
+        EligibilityAgent["✔️ EligibilityAgent"]:::delegate
+        ProgramAgent["📊 ProgramAgent"]:::delegate
+        EnrollmentAgent["📋 EnrollmentAgent"]:::delegate
+        CoverageAgent["🛡️ CoverageAgent"]:::delegate
+    end
+
+    A -->|Delegates Tasks| AgenticLayer
+    AgenticLayer -->|Fetches Data| D
+
     style D fill:#E0F7FA,stroke:#006064,stroke-width:2px,rx:10,ry:10;
