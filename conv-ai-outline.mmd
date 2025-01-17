@@ -1,1 +1,25 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#E0F2F1',
+    'primaryTextColor': '#004D40',
+    'primaryBorderColor': '#00796B',
+    'lineColor': '#00796B',
+    'secondaryColor': '#FFF3E0',
+    'tertiaryColor': '#F1F8E9'
+  }
+}}%%
+
+flowchart LR
+    classDef default fill:#fff,stroke:#00796B,stroke-width:2px,rx:5,ry:5;
+    classDef coordinator fill:#E0F2F1,stroke:#00796B,stroke-width:3px,rx:10,ry:10;
+    classDef intent fill:#B2DFDB,stroke:#00796B,stroke-width:2px;
+    classDef delegate fill:#FFF3E0,stroke:#FF8F00,stroke-width:2px,rx:8,ry:8;
+    classDef llm fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,rx:5,ry:5;
+    classDef api fill:#FCE4EC,stroke:#C2185B,stroke-width:2px,rx:5,ry:5;
+    classDef process fill:#F1F8E9,stroke:#558B2F,stroke-width:2px,rx:5,ry:5;
+
+    U["👤 User Input"]:::default --> I["🔍 Intent Decoding<br>(SLM)"]:::intent --> A["🤖 Agentic Layer<br>(All Agents)"]:::coordinator --> D["📦 Data Retriever Layer<br>(VectorStore / DB / API)"]:::process --> LLM["🧠 Response Generation<br>(LLM)"]:::llm --> R["💬 Response to User"]:::default
+
+    style D fill:#E0F7FA,stroke:#006064,stroke-width:2px,rx:10,ry:10;
 
