@@ -19,7 +19,6 @@ flowchart LR
     classDef api fill:#FCE4EC,stroke:#C2185B,stroke-width:2px,rx:5,ry:5;
     classDef process fill:#F1F8E9,stroke:#558B2F,stroke-width:2px,rx:5,ry:5;
 
-    U["👤 User Input"]:::default --> I["🔍 Intent Decoding<br>(SLM)"]:::intent --> A["🤖 Agentic Layer<br>(All Agents)"]:::coordinator --> D["📦 Data Retriever Layer<br>(VectorStore / DB / API)"]:::process --> LLM["🧠 Response Generation<br>(LLM)"]:::llm --> R["💬 Response to User"]:::default
+    U["👤 User Input"]:::default --> I["🔍 Intent Decoding<br>(SLM)"]:::intent --> A["🤖 Agentic Layer<br>(All Agents)"]:::coordinator --> D["📦 Data Retriever Layer<br>(VectorStore / DB / API)"]:::process --> LLM["🧠 Response Generation<br>(LLM)"]:::llm --> R["💬 Response to User"]:::default --> U
 
     style D fill:#E0F7FA,stroke:#006064,stroke-width:2px,rx:10,ry:10;
-
